@@ -53,9 +53,9 @@ class MainBloc extends Cubit<MainState> {
     emit(HoverOnAboutState());
   }
 
-  bool isAnimated = false;
-  animate(bool animated) {
-    isAnimated = animated;
-    emit(AnimateState());
-  }
+  // bool isAnimated = false;
+  // animate(bool animated) {
+  //   isAnimated = animated;
+  //   emit(AnimateState());
+  // }
 }

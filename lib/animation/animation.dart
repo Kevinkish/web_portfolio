@@ -66,17 +66,6 @@ class _DelayedAnimationState extends State<DelayedAnimation>
 
   @override
   Widget build(BuildContext context) {
-    // cubit(context).isAnimated
-    //     ? {
-    //         Timer(const Duration(milliseconds: 0), () {
-    //           controller.toggle().whenComplete(
-    //                 () => controller.forward(),
-    //               );
-
-    //           cubit(context).animate(false);
-    //         }),
-    //       }
-    //     : null;
     return FadeTransition(
       opacity: controller,
       child: SlideTransition(

@@ -95,7 +95,9 @@ topTexts(BuildContext context) {
 ListView selectorListView({dynamic context, bool isDrawer = false}) {
   return ListView.builder(
       shrinkWrap: true,
-      itemExtent: sizeWidth(context) * 0.09,
+      itemExtent: isMobile(context) && isDrawer == false
+          ? sizeWidth(context) * 0.15
+          : sizeWidth(context) * 0.09,
       scrollDirection: isDrawer ? Axis.vertical : Axis.horizontal,
       itemCount: navigationList.length,
       itemBuilder: (context, index) {
@@ -117,157 +119,170 @@ Column presentationMethod(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      DelayedAnimation(
-        delay: delayedAnimationDuration + 100,
-        child: Container(
-          padding: const EdgeInsets.all(3),
-          decoration: BoxDecoration(
-              color: AppColors.tdYellowB,
-              borderRadius: BorderRadius.circular(3)),
-          child: Text(
-            'Kevin Kish',
-            style: theme(context)
-                .textTheme
-                .titleSmall!
-                .copyWith(color: AppColors.tdWhite),
-          ),
-        ),
-      ),
-      const Gap(20),
-      DelayedAnimation(
-        delay: delayedAnimationDuration + 200,
-        child: Row(
-          children: [
-            Text(
-              "I'm ",
-              style: theme(context).textTheme.headlineLarge,
-            ),
-            AnimatedTextKit(
-              animatedTexts: [
-                TypewriterAnimatedText(
-                  'Developer',
-                  cursor: "|",
-                  textStyle: theme(context)
+      cubit(context).selectedPage >= 0
+          ? DelayedAnimation(
+              delay: delayedAnimationDuration + 100,
+              child: Container(
+                padding: const EdgeInsets.all(3),
+                decoration: BoxDecoration(
+                    color: AppColors.tdYellowB,
+                    borderRadius: BorderRadius.circular(3)),
+                child: Text(
+                  'Kevin Kish',
+                  style: theme(context)
                       .textTheme
-                      .headlineLarge!
-                      .copyWith(color: AppColors.mainBlue),
-                  speed: const Duration(milliseconds: 200),
-                ),
-                TypewriterAnimatedText(
-                  'Designer',
-                  cursor: "|",
-                  textStyle: theme(context)
-                      .textTheme
-                      .headlineLarge!
-                      .copyWith(color: AppColors.mainBlue),
-                  speed: const Duration(milliseconds: 200),
-                ),
-              ],
-              pause: const Duration(milliseconds: 1000),
-              displayFullTextOnTap: true,
-              stopPauseOnTap: true,
-              repeatForever: true,
-            ),
-          ],
-        ),
-      ),
-      const Gap(30),
-      DelayedAnimation(
-        delay: delayedAnimationDuration + 300,
-        child: const Text(
-          "Experienced frontend developer with a passion for creating visually stunning and user-friendly websites.",
-        ),
-      ),
-      const Gap(20),
-      DelayedAnimation(
-        delay: delayedAnimationDuration + 400,
-        child: Row(
-          mainAxisAlignment: isMobile(context)
-              ? MainAxisAlignment.center
-              : MainAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: isMobile(context) ? 1 : 0,
-              child: roundedContainerBtn(
-                  context: context,
-                  child: Center(
-                    child: Text(
-                      "Hire Me",
-                      style: theme(context)
-                          .textTheme
-                          .titleSmall!
-                          .copyWith(color: AppColors.tdWhite),
-                    ),
-                  ),
-                  color: AppColors.tdMallow),
-            ),
-            const Gap(15),
-            Expanded(
-              flex: isMobile(context) ? 1 : 0,
-              child: MouseRegion(
-                onHover: (event) {
-                  cubit(context).hoveronHome1(true);
-                },
-                onExit: (event) {
-                  cubit(context).hoveronHome1(false);
-                },
-                child: AnimatedContainer(
-                  duration: onHoverShortAnimationDuration(),
-                  curve: Curves.decelerate,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(7),
-                      color: cubit(context).onHome1
-                          ? AppColors.tdBlue
-                          : AppColors.tdGrey),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 13),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: Text(
-                          "Download CV",
-                          style: theme(context).textTheme.titleSmall!.copyWith(
-                              color: cubit(context).onHome1
-                                  ? AppColors.tdWhite
-                                  : AppColors.tdBlack),
-                        ),
-                      ),
-                      const Gap(10),
-                      Icon(
-                        color: cubit(context).onHome1
-                            ? AppColors.tdWhite
-                            : AppColors.tdBlack,
-                        Icons.feed_rounded,
-                        size: 18,
-                      )
-                    ],
-                  ),
+                      .titleSmall!
+                      .copyWith(color: AppColors.tdWhite),
                 ),
               ),
             )
-          ],
-        ),
-      ),
+          : Container(),
+      const Gap(20),
+      cubit(context).selectedPage >= 0
+          ? DelayedAnimation(
+              delay: delayedAnimationDuration + 200,
+              child: Row(
+                children: [
+                  Text(
+                    "I'm ",
+                    style: theme(context).textTheme.headlineLarge,
+                  ),
+                  AnimatedTextKit(
+                    animatedTexts: [
+                      TypewriterAnimatedText(
+                        'Developer',
+                        cursor: "|",
+                        textStyle: theme(context)
+                            .textTheme
+                            .headlineLarge!
+                            .copyWith(color: AppColors.mainBlue),
+                        speed: const Duration(milliseconds: 200),
+                      ),
+                      TypewriterAnimatedText(
+                        'Designer',
+                        cursor: "|",
+                        textStyle: theme(context)
+                            .textTheme
+                            .headlineLarge!
+                            .copyWith(color: AppColors.mainBlue),
+                        speed: const Duration(milliseconds: 200),
+                      ),
+                    ],
+                    pause: const Duration(milliseconds: 1000),
+                    displayFullTextOnTap: true,
+                    stopPauseOnTap: true,
+                    repeatForever: true,
+                  ),
+                ],
+              ),
+            )
+          : Container(),
+      const Gap(30),
+      cubit(context).selectedPage >= 0
+          ? DelayedAnimation(
+              delay: delayedAnimationDuration + 300,
+              child: const Text(
+                "Experienced frontend developer with a passion for creating visually stunning and user-friendly websites.",
+              ),
+            )
+          : Container(),
+      const Gap(20),
+      cubit(context).selectedPage >= 0
+          ? DelayedAnimation(
+              delay: delayedAnimationDuration + 400,
+              child: Row(
+                mainAxisAlignment: isMobile(context)
+                    ? MainAxisAlignment.center
+                    : MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: isMobile(context) ? 1 : 0,
+                    child: roundedContainerBtn(
+                        context: context,
+                        child: Center(
+                          child: Text(
+                            "Hire Me",
+                            style: theme(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(color: AppColors.tdWhite),
+                          ),
+                        ),
+                        color: AppColors.tdMallow),
+                  ),
+                  const Gap(15),
+                  Expanded(
+                    flex: isMobile(context) ? 1 : 0,
+                    child: MouseRegion(
+                      onHover: (event) {
+                        cubit(context).hoveronHome1(true);
+                      },
+                      onExit: (event) {
+                        cubit(context).hoveronHome1(false);
+                      },
+                      child: AnimatedContainer(
+                        duration: onHoverShortAnimationDuration(),
+                        curve: Curves.decelerate,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(7),
+                            color: cubit(context).onHome1
+                                ? AppColors.tdBlue
+                                : AppColors.tdGrey),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 13),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Center(
+                              child: Text(
+                                "Download CV",
+                                style: theme(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: cubit(context).onHome1
+                                            ? AppColors.tdWhite
+                                            : AppColors.tdBlack),
+                              ),
+                            ),
+                            const Gap(10),
+                            Icon(
+                              color: cubit(context).onHome1
+                                  ? AppColors.tdWhite
+                                  : AppColors.tdBlack,
+                              Icons.feed_rounded,
+                              size: 18,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )
+          : Container(),
       const Gap(50),
-      DelayedAnimation(
-        delay: delayedAnimationDuration + 500,
-        child: Row(
-          mainAxisAlignment: isMobile(context)
-              ? MainAxisAlignment.spaceEvenly
-              : MainAxisAlignment.start,
-          children: [
-            referenceCircle(icon: MingCute.facebook_fill),
-            const Gap(30),
-            referenceCircle(icon: MingCute.church_line),
-            const Gap(30),
-            referenceCircle(icon: MingCute.facebook_line),
-            const Gap(30),
-            referenceCircle(icon: Icons.tiktok),
-          ],
-        ),
-      ),
+      cubit(context).selectedPage >= 0
+          ? DelayedAnimation(
+              delay: delayedAnimationDuration + 500,
+              child: Row(
+                mainAxisAlignment: isMobile(context)
+                    ? MainAxisAlignment.spaceEvenly
+                    : MainAxisAlignment.start,
+                children: [
+                  referenceCircle(icon: MingCute.facebook_fill),
+                  const Gap(30),
+                  referenceCircle(icon: MingCute.church_line),
+                  const Gap(30),
+                  referenceCircle(icon: MingCute.facebook_line),
+                  const Gap(30),
+                  referenceCircle(icon: Icons.tiktok),
+                ],
+              ),
+            )
+          : Container(),
     ],
   );
 }
@@ -285,7 +300,7 @@ homePage({dynamic context, GlobalKey? key}) {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        isMobile(context)
+        isMobile(context) && cubit(context).selectedPage >= 0
             ? DelayedAnimation(
                 delay: delayedAnimationDuration, child: topImage(context))
             : Container(),
@@ -294,7 +309,7 @@ homePage({dynamic context, GlobalKey? key}) {
           children: [
             Expanded(child: presentationMethod(context)),
             isDesktop(context) ? Gap(sizeWidth(context) * 0.1) : Container(),
-            isDesktop(context)
+            isDesktop(context) && cubit(context).selectedPage >= 0
                 ? DelayedAnimation(
                     delay: delayedAnimationDuration, child: topImage(context))
                 : Container()
@@ -302,59 +317,71 @@ homePage({dynamic context, GlobalKey? key}) {
         ),
 
         //SCROLL DOWN BUTTON
+        // isDesktop(context)
+        //     ? Column(
+        //       mainAxisAlignment: MainAxisAlignment.end,
+        //       children: [
+        //         scrollDownBtn(context),
+        //       ],
+        //     )
+        // :
         Column(
-           mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GestureDetector(
-              onTap: () {
-                cubit(context).navigationChanged(1);
-                resetToTop(1);
-              },
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: AppColors.tdWhite,
-                    boxShadow: const [
-                      BoxShadow(
-                          color: Colors.black12,
-                          spreadRadius: 1,
-                          blurRadius: 10,
-                          offset: Offset(0, 3))
-                    ]),
-                child: SizedBox(
-                  height:25,
-                  child: ListView(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      const Icon(MingCute.mouse_line),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Scroll down",
-                            textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                            style:
-                                theme(context).textTheme.titleSmall!.copyWith(
-                                      color: AppColors.tdBlack,
-                                    ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            Gap(sizeHeight(context) * 0.05),
+            scrollDownBtn(context),
           ],
         ),
-    
+
         isHeightRediuced(context) || isMobile(context)
             ? Gap(sizeHeight(context) * 0.05)
             : Container()
       ],
+    ),
+  );
+}
+
+GestureDetector scrollDownBtn(context) {
+  return GestureDetector(
+    onTap: () {
+      cubit(context).navigationChanged(1);
+      resetToTop(1);
+    },
+    child: Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: AppColors.tdWhite,
+          boxShadow: const [
+            BoxShadow(
+                color: Colors.black12,
+                spreadRadius: 1,
+                blurRadius: 10,
+                offset: Offset(0, 3))
+          ]),
+      child: SizedBox(
+        height: 25,
+        child: ListView(
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          children: [
+            const Icon(MingCute.mouse_line),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Scroll down",
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: theme(context).textTheme.titleSmall!.copyWith(
+                        color: AppColors.tdBlack,
+                      ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
     ),
   );
 }

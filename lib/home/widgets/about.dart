@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:web_portfolio/animation/animation.dart';
+import 'package:web_portfolio/home/home_page.dart';
 import 'package:web_portfolio/tools/colors.dart';
 import 'package:web_portfolio/tools/general_tools.dart';
 
@@ -18,7 +19,8 @@ Container aboutPage({dynamic context, GlobalKey? key}) {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        cubit(context).selectedPage == 1
+        cubit(context).selectedPage == 1 ||
+                scrollPosition > (sizeHeight(context) - kToolbarHeight) / 3
             ? DelayedAnimation(
                 delay: delayedAnimationDuration,
                 child: Text(
@@ -37,7 +39,9 @@ Container aboutPage({dynamic context, GlobalKey? key}) {
             //LEFT CONTAINER
             Expanded(
               flex: 1,
-              child: cubit(context).selectedPage == 1
+              child: cubit(context).selectedPage == 1 ||
+                      scrollPosition >
+                          (sizeHeight(context) - kToolbarHeight) / 3
                   ? DelayedAnimation(
                       fromLeft: true,
                       delay: delayedAnimationDuration,
@@ -123,7 +127,9 @@ Container aboutPage({dynamic context, GlobalKey? key}) {
                 ? Container()
                 : Expanded(
                     flex: 1,
-                    child: cubit(context).selectedPage == 1
+                    child: cubit(context).selectedPage == 1 ||
+                            scrollPosition >
+                                (sizeHeight(context) - kToolbarHeight) / 3
                         ? DelayedAnimation(
                             fromRight: true,
                             delay: delayedAnimationDuration,
@@ -134,7 +140,9 @@ Container aboutPage({dynamic context, GlobalKey? key}) {
           ],
         ),
         const Gap(20),
-        isMobile(context) && cubit(context).selectedPage == 1
+        cubit(context).selectedPage == 1 && isMobile(context) ||
+                isMobile(context) &&
+                    scrollPosition > (sizeHeight(context) - kToolbarHeight) / 3
             ? DelayedAnimation(
                 fromRight: true,
                 delay: delayedAnimationDuration,

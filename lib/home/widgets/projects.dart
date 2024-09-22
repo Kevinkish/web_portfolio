@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:web_portfolio/animation/animation.dart';
+import 'package:web_portfolio/home/home_page.dart';
 import 'package:web_portfolio/tools/colors.dart';
 import 'package:web_portfolio/tools/general_tools.dart';
 
@@ -18,7 +19,7 @@ Container projectPage({dynamic context, GlobalKey? key}) {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        cubit(context).selectedPage == 2
+        cubit(context).selectedPage == 2 || scrollPosition > (sizeHeight(context) - kToolbarHeight) * 3 / 2
             ? DelayedAnimation(
                 delay: delayedAnimationDuration,
                 child: Text(
@@ -38,7 +39,8 @@ Container projectPage({dynamic context, GlobalKey? key}) {
             //LEFT CONTAINER
             Expanded(
               flex: 1,
-              child: cubit(context).selectedPage == 2
+              child: cubit(context).selectedPage == 2 || scrollPosition >
+                      (sizeHeight(context) - kToolbarHeight) * 3 / 2
                   ? DelayedAnimation(
                       delay: delayedAnimationDuration,
                       child: projectDetailsContainer(
@@ -58,7 +60,8 @@ Container projectPage({dynamic context, GlobalKey? key}) {
                 ? Container()
                 : Expanded(
                     flex: 1,
-                    child: cubit(context).selectedPage == 2
+                    child: cubit(context).selectedPage == 2 || scrollPosition >
+                            (sizeHeight(context) - kToolbarHeight) * 3 / 2
                         ? DelayedAnimation(
                             delay: delayedAnimationDuration + 100,
                             child: middleProjects(context))
@@ -71,7 +74,8 @@ Container projectPage({dynamic context, GlobalKey? key}) {
                 ? Container()
                 : Expanded(
                     flex: 1,
-                    child: cubit(context).selectedPage == 2
+                    child: cubit(context).selectedPage == 2 || scrollPosition >
+                            (sizeHeight(context) - kToolbarHeight) * 3 / 2
                         ? DelayedAnimation(
                             delay: delayedAnimationDuration + 200,
                             child: rightProjects(context),
@@ -85,7 +89,8 @@ Container projectPage({dynamic context, GlobalKey? key}) {
             ? Row(
                 children: [
                   Expanded(
-                    child: cubit(context).selectedPage == 2
+                    child: cubit(context).selectedPage == 2 || scrollPosition >
+                            (sizeHeight(context) - kToolbarHeight) * 3 / 2
                         ? DelayedAnimation(
                             delay: delayedAnimationDuration + 100,
                             child: middleProjects(context),

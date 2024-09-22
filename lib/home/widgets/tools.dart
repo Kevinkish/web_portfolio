@@ -12,22 +12,19 @@ GestureDetector navigationGestureBtn(
         index == 0 &&
                 isHeightRediuced(context) == false &&
                 isMobile(context) == false
-            ? scrollController.offset == pagesHeight
+            ? scrollController.offset == 0
             : index == 1 &&
                     isHeightRediuced(context) == false &&
                     isMobile(context) == false
-                ? scrollController.offset == pagesHeight * 2
+                ? scrollController.offset == pagesHeight
                 : index == 2 &&
                         isHeightRediuced(context) == false &&
                         sizeWidth(context) > 700
-                    ? scrollController.offset == pagesHeight * 3
-                    : index == 4
-                        ? scrollController.offset == pagesHeight * 4
+                    ? scrollController.offset == pagesHeight * 1
+                    : index == 3
+                        ? scrollController.offset == pagesHeight * 2
                         : cubit(context).navigationChanged(index!);
-        // index==1?
-        // scrollController.offset == pagesHeight:index==2?
-        // cubit(context).navigationChanged(index!);
-        cubit(context).animate(true);
+
         resetToTop(index);
         isDrawer ? Navigator.pop(context) : null;
       },

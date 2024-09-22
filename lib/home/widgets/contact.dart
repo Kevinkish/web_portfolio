@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:web_portfolio/animation/animation.dart';
+import 'package:web_portfolio/home/home_page.dart';
 import 'package:web_portfolio/home/widgets/home.dart';
 import 'package:web_portfolio/home/widgets/tools.dart';
 import 'package:web_portfolio/tools/colors.dart';
@@ -17,24 +18,30 @@ Container contactPage({dynamic context, GlobalKey? key}) {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        DelayedAnimation(
-          delay: delayedAnimationDuration,
-          child: Text(
-            "Get in touch",
-            style: theme(context)
-                .textTheme
-                .titleMedium!
-                .copyWith(color: AppColors.tdBlack, fontSize: 21),
-          ),
-        ),
+        cubit(context).selectedPage == 3 ||
+                scrollPosition > (sizeHeight(context) - kToolbarHeight) * 5 / 2
+            ? DelayedAnimation(
+                delay: delayedAnimationDuration,
+                child: Text(
+                  "Get in touch",
+                  style: theme(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: AppColors.tdBlack, fontSize: 21),
+                ),
+              )
+            : Container(),
         const Gap(7),
-        DelayedAnimation(
-          delay: delayedAnimationDuration,
-          child: const Text(
-            "Do you have a project in your mind, contact me here.",
-            style: TextStyle(color: Colors.grey),
-          ),
-        ),
+        cubit(context).selectedPage == 3 ||
+                scrollPosition > (sizeHeight(context) - kToolbarHeight) * 5 / 2
+            ? DelayedAnimation(
+                delay: delayedAnimationDuration,
+                child: const Text(
+                  "Do you have a project in your mind, contact me here.",
+                  style: TextStyle(color: Colors.grey),
+                ),
+              )
+            : Container(),
         const Gap(65),
         Column(
           children: [
@@ -45,123 +52,134 @@ Container contactPage({dynamic context, GlobalKey? key}) {
                 //LEFT CONTAINER WITH MOUSE REGION
                 Expanded(
                   flex: 1,
-                  child: DelayedAnimation(
-                    fromLeft: true,
-                    delay: delayedAnimationDuration,
-                    child: SizedBox(
-                      height: sizeHeight(context) * 0.55,
-                      child: Stack(
-                        children: [
-                          //FIRST CONTAINER
-                          Container(
-                            decoration: BoxDecoration(
-                                color: AppColors.tdWhite,
-                                borderRadius: BorderRadius.circular(12),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: Colors.black12,
-                                    blurRadius: 10,
-                                    offset: Offset(3, 5),
+                  child: cubit(context).selectedPage == 3 ||
+                          scrollPosition >
+                              (sizeHeight(context) - kToolbarHeight) * 5 / 2
+                      ? DelayedAnimation(
+                          fromLeft: true,
+                          delay: delayedAnimationDuration,
+                          child: SizedBox(
+                            height: sizeHeight(context) * 0.55,
+                            child: Stack(
+                              children: [
+                                //FIRST CONTAINER
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: AppColors.tdWhite,
+                                      borderRadius: BorderRadius.circular(12),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: Colors.black12,
+                                          blurRadius: 10,
+                                          offset: Offset(3, 5),
+                                        ),
+                                      ]),
+                                ),
+
+                                //SECOND CONTAINER
+                                AnimatedContainer(
+                                  curve: Curves.easeInOut,
+                                  height: cubit(context).onContact
+                                      ? 0
+                                      : sizeHeight(context) * 0.55,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: const Radius.circular(12),
+                                        bottom: Radius.circular(
+                                            cubit(context).onContact ? 0 : 12)),
+                                    color: AppColors.tdBlue,
                                   ),
-                                ]),
-                          ),
+                                  duration: onHoverLongAnimationDuration(),
+                                ),
 
-                          //SECOND CONTAINER
-                          AnimatedContainer(
-                            curve: Curves.easeInOut,
-                            height: cubit(context).onContact
-                                ? 0
-                                : sizeHeight(context) * 0.55,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.vertical(
-                                  top: const Radius.circular(12),
-                                  bottom: Radius.circular(
-                                      cubit(context).onContact ? 0 : 12)),
-                              color: AppColors.tdBlue,
+                                //THIRD CONTAINER
+                                MouseRegion(
+                                  onHover: (event) {
+                                    cubit(context).hoverOnContact(true);
+                                  },
+                                  onExit: (event) {
+                                    cubit(context).hoverOnContact(false);
+                                  },
+                                  child: contactsDetailsContainer(
+                                      context: context,
+                                      putShadow: false,
+                                      color: Colors.transparent,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Find me",
+                                            style: theme(context)
+                                                .textTheme
+                                                .titleLarge!
+                                                .copyWith(
+                                                    color: cubit(context)
+                                                            .onContact
+                                                        ? AppColors.tdBlack
+                                                        : AppColors.tdWhite),
+                                          ),
+                                          const Gap(20),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                  size: 16,
+                                                  color:
+                                                      cubit(context).onContact
+                                                          ? AppColors.tdBlack
+                                                          : AppColors.tdWhite,
+                                                  Icons.mail_outline_rounded),
+                                              const Gap(10),
+                                              Expanded(
+                                                child: Text(
+                                                    "Email: kevinkish117@gmail.com",
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                        color: cubit(context)
+                                                                .onContact
+                                                            ? AppColors.tdBlack
+                                                            : AppColors.tdWhite,
+                                                        fontSize: 12)),
+                                              )
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                  size: 16,
+                                                  color:
+                                                      cubit(context).onContact
+                                                          ? AppColors.tdBlack
+                                                          : AppColors.tdWhite,
+                                                  MingCute.phone_line),
+                                              const Gap(10),
+                                              Expanded(
+                                                child: Text(
+                                                    "Tel: +243 991 617 472",
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                        color: cubit(context)
+                                                                .onContact
+                                                            ? AppColors.tdBlack
+                                                            : AppColors.tdWhite,
+                                                        fontSize: 12)),
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      )),
+                                ),
+                              ],
                             ),
-                            duration: onHoverLongAnimationDuration(),
                           ),
-
-                          //THIRD CONTAINER
-                          MouseRegion(
-                            onHover: (event) {
-                              cubit(context).hoverOnContact(true);
-                            },
-                            onExit: (event) {
-                              cubit(context).hoverOnContact(false);
-                            },
-                            child: contactsDetailsContainer(
-                                context: context,
-                                putShadow: false,
-                                color: Colors.transparent,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Find me",
-                                      style: theme(context)
-                                          .textTheme
-                                          .titleLarge!
-                                          .copyWith(
-                                              color: cubit(context).onContact
-                                                  ? AppColors.tdBlack
-                                                  : AppColors.tdWhite),
-                                    ),
-                                    const Gap(20),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                            size: 16,
-                                            color: cubit(context).onContact
-                                                ? AppColors.tdBlack
-                                                : AppColors.tdWhite,
-                                            Icons.mail_outline_rounded),
-                                        const Gap(10),
-                                        Expanded(
-                                          child: Text(
-                                              "Email: kevinkish117@gmail.com",
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                  color:
-                                                      cubit(context).onContact
-                                                          ? AppColors.tdBlack
-                                                          : AppColors.tdWhite,
-                                                  fontSize: 12)),
-                                        )
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                            size: 16,
-                                            color: cubit(context).onContact
-                                                ? AppColors.tdBlack
-                                                : AppColors.tdWhite,
-                                            MingCute.phone_line),
-                                        const Gap(10),
-                                        Expanded(
-                                          child: Text("Tel: +243 991 617 472",
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                  color:
-                                                      cubit(context).onContact
-                                                          ? AppColors.tdBlack
-                                                          : AppColors.tdWhite,
-                                                  fontSize: 12)),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                )),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                        )
+                      : Container(),
                 ),
                 isMobile(context)
                     ? Container()
@@ -172,10 +190,16 @@ Container contactPage({dynamic context, GlobalKey? key}) {
                     ? Container()
                     : Expanded(
                         flex: 1,
-                        child: DelayedAnimation(
-                            fromRight: true,
-                            delay: delayedAnimationDuration,
-                            child: idsContainer(context))),
+                        child: cubit(context).selectedPage == 3 ||
+                                scrollPosition >
+                                    (sizeHeight(context) - kToolbarHeight) *
+                                        5 /
+                                        2
+                            ? DelayedAnimation(
+                                fromRight: true,
+                                delay: delayedAnimationDuration,
+                                child: idsContainer(context))
+                            : Container()),
               ],
             ),
             Gap(sizeHeight(context) * 0.02),
@@ -191,10 +215,16 @@ Container contactPage({dynamic context, GlobalKey? key}) {
                         flex: 1,
                         child: Row(
                           children: [
-                            DelayedAnimation(
-                                fromRight: true,
-                                delay: delayedAnimationDuration,
-                                child: sendBtn(context)),
+                            cubit(context).selectedPage == 3 ||
+                                    scrollPosition >
+                                        (sizeHeight(context) - kToolbarHeight) *
+                                            5 /
+                                            2
+                                ? DelayedAnimation(
+                                    fromRight: true,
+                                    delay: delayedAnimationDuration,
+                                    child: sendBtn(context))
+                                : Container(),
                             Container()
                           ],
                         ),
@@ -204,17 +234,25 @@ Container contactPage({dynamic context, GlobalKey? key}) {
           ],
         ),
         isMobile(context)
-            ? DelayedAnimation(
-                fromRight: true,
-                delay: delayedAnimationDuration,
-                child: idsContainer(context))
+            ? cubit(context).selectedPage == 3 ||
+                    scrollPosition >
+                        (sizeHeight(context) - kToolbarHeight) * 5 / 2
+                ? DelayedAnimation(
+                    fromRight: true,
+                    delay: delayedAnimationDuration,
+                    child: idsContainer(context))
+                : Container()
             : Container(),
         isMobile(context) ? Gap(sizeHeight(context) * 0.02) : Container(),
         isMobile(context)
-            ? DelayedAnimation(
-                fromLeft: true,
-                delay: delayedAnimationDuration,
-                child: sendBtn(context))
+            ? cubit(context).selectedPage == 3 ||
+                    scrollPosition >
+                        (sizeHeight(context) - kToolbarHeight) * 5 / 2
+                ? DelayedAnimation(
+                    fromLeft: true,
+                    delay: delayedAnimationDuration,
+                    child: sendBtn(context))
+                : Container()
             : Container(),
         Gap(sizeHeight(context) * 0.15),
         Text("Kevin Kish .",

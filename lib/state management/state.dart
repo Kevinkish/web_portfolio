@@ -18,4 +18,4 @@ class HoverOnHome1State extends MainState {}
 
 class HoverOnAboutState extends MainState {}
 
-class AnimateState extends MainState {}
+// class AnimateState extends MainState {}

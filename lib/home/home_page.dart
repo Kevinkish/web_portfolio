@@ -32,6 +32,7 @@ void resetToTop(index) {
 List navigationList = ["Home", "About", "Projects", "Contact"];
 
 final ScrollController scrollController = ScrollController();
+double scrollPosition = 0;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -45,33 +46,48 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     scrollController.addListener(() async {
-      print('Position actuelle du scroll : ${scrollController.offset}');
+      scrollPosition = scrollController.offset;
+      // print('Position actuelle du scroll : ${scrollController.offset}');
+      print('Position actuelle du scroll : ${GlobalKey().currentWidget}');
       double pagesHeight = (sizeHeight(context) - kToolbarHeight);
-      isDesktop(context)
-          ? scrollController.offset < pagesHeight &&
+      //WHILE DESKTOP
+      // isDesktop(context)
+      //     ?
+      scrollController.offset < pagesHeight &&
+              isHeightRediuced(context) == false &&
+              isMobile(context) == false
+          ? cubit(context).navigationChanged(0)
+          : scrollController.offset < pagesHeight * 2 &&
                   isHeightRediuced(context) == false &&
                   isMobile(context) == false
-              ? cubit(context).navigationChanged(0)
-              : scrollController.offset < pagesHeight * 2 &&
+              ? cubit(context).navigationChanged(1)
+              : scrollController.offset < pagesHeight * 3 &&
                       isHeightRediuced(context) == false &&
-                      isMobile(context) == false
-                  ? cubit(context).navigationChanged(1)
-                  : scrollController.offset < pagesHeight * 3 &&
-                          isHeightRediuced(context) == false &&
-                          sizeWidth(context) > 700
-                      ? cubit(context).navigationChanged(2)
-                      : scrollController.offset < pagesHeight * 4
-                          ? cubit(context).navigationChanged(3)
-                          : null
-          : null;
+                      sizeWidth(context) > 700
+                  ? cubit(context).navigationChanged(2)
+                  : scrollController.offset < pagesHeight * 4
+                      ? cubit(context).navigationChanged(3)
+                      : null;
+
+      // WHILE MOBILE
+      // : scrollController.position == containerKey0.currentContext
+      //     ? cubit(context).navigationChanged(0)
+      //     : scrollController.position == containerKey1.currentContext
+      //         ? cubit(context).navigationChanged(1)
+      //         : scrollController.position == containerKey2.currentContext
+      //             ? cubit(context).navigationChanged(2)
+      //             : scrollController.position ==
+      //                     containerKey3.currentContext
+      //                 ? cubit(context).navigationChanged(3)
+      //                 : null;
     });
   }
 
-  // @override
-  // void dispose() {
-  //   scrollController.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,15 +122,15 @@ class _HomePageState extends State<HomePage> {
               controller: scrollController,
               child: Column(
                 children: [
-                  ListView(
-                    shrinkWrap: true,
-                    children: [
-                      homePage(context: context, key: containerKey0),
-                      aboutPage(context: context, key: containerKey1),
-                      projectPage(context: context, key: containerKey2),
-                      contactPage(context: context, key: containerKey3),
-                    ],
-                  ),
+                  // ListView(
+                  //   shrinkWrap: true,
+                  //   children: [
+                  homePage(context: context, key: containerKey0),
+                  aboutPage(context: context, key: containerKey1),
+                  projectPage(context: context, key: containerKey2),
+                  contactPage(context: context, key: containerKey3),
+                  //   ],
+                  // ),
                 ],
               ),
             ),
