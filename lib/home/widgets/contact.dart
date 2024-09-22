@@ -19,7 +19,7 @@ Container contactPage({dynamic context, GlobalKey? key}) {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         cubit(context).selectedPage == 3 ||
-                scrollPosition > (sizeHeight(context) - kToolbarHeight) * 5 / 2
+                scrollPosition > pagesHeight(context) * 5 / 2
             ? DelayedAnimation(
                 delay: delayedAnimationDuration,
                 child: Text(
@@ -33,7 +33,7 @@ Container contactPage({dynamic context, GlobalKey? key}) {
             : Container(),
         const Gap(7),
         cubit(context).selectedPage == 3 ||
-                scrollPosition > (sizeHeight(context) - kToolbarHeight) * 5 / 2
+                scrollPosition > pagesHeight(context) * 5 / 2
             ? DelayedAnimation(
                 delay: delayedAnimationDuration,
                 child: const Text(
@@ -55,7 +55,7 @@ Container contactPage({dynamic context, GlobalKey? key}) {
                   flex: 1,
                   child: cubit(context).selectedPage == 3 ||
                           scrollPosition >
-                              (sizeHeight(context) - kToolbarHeight) * 5 / 2
+                              pagesHeight(context) * 5 / 2
                       ? DelayedAnimation(
                           fromLeft: true,
                           delay: delayedAnimationDuration,
@@ -193,7 +193,7 @@ Container contactPage({dynamic context, GlobalKey? key}) {
                         flex: 1,
                         child: cubit(context).selectedPage == 3 ||
                                 scrollPosition >
-                                    (sizeHeight(context) - kToolbarHeight) *
+                                    pagesHeight(context) *
                                         5 /
                                         2
                             ? DelayedAnimation(
@@ -218,7 +218,7 @@ Container contactPage({dynamic context, GlobalKey? key}) {
                           children: [
                             cubit(context).selectedPage == 3 ||
                                     scrollPosition >
-                                        (sizeHeight(context) - kToolbarHeight) *
+                                        pagesHeight(context) *
                                             5 /
                                             2
                                 ? DelayedAnimation(
@@ -237,7 +237,7 @@ Container contactPage({dynamic context, GlobalKey? key}) {
         isMobile(context)
             ? cubit(context).selectedPage == 3 ||
                     scrollPosition >
-                        (sizeHeight(context) - kToolbarHeight) * 5 / 2
+                        pagesHeight(context) * 5 / 2
                 ? DelayedAnimation(
                     fromRight: true,
                     delay: delayedAnimationDuration,
@@ -248,7 +248,7 @@ Container contactPage({dynamic context, GlobalKey? key}) {
         isMobile(context)
             ? cubit(context).selectedPage == 3 ||
                     scrollPosition >
-                        (sizeHeight(context) - kToolbarHeight) * 5 / 2
+                        pagesHeight(context) * 5 / 2
                 ? DelayedAnimation(
                     fromLeft: true,
                     delay: delayedAnimationDuration,

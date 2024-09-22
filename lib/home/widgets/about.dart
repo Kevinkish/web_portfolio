@@ -20,7 +20,7 @@ Container aboutPage({dynamic context, GlobalKey? key}) {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         cubit(context).selectedPage == 1 ||
-                scrollPosition > (sizeHeight(context) - kToolbarHeight) / 3
+                scrollPosition > pagesHeight(context) / 3
             ? DelayedAnimation(
                 delay: delayedAnimationDuration,
                 child: Text(
@@ -40,8 +40,7 @@ Container aboutPage({dynamic context, GlobalKey? key}) {
             Expanded(
               flex: 1,
               child: cubit(context).selectedPage == 1 ||
-                      scrollPosition >
-                          (sizeHeight(context) - kToolbarHeight) / 3
+                      scrollPosition > pagesHeight(context) / 3
                   ? DelayedAnimation(
                       fromLeft: true,
                       delay: delayedAnimationDuration,
@@ -128,8 +127,7 @@ Container aboutPage({dynamic context, GlobalKey? key}) {
                 : Expanded(
                     flex: 1,
                     child: cubit(context).selectedPage == 1 ||
-                            scrollPosition >
-                                (sizeHeight(context) - kToolbarHeight) / 3
+                            scrollPosition > pagesHeight(context) / 3
                         ? DelayedAnimation(
                             fromRight: true,
                             delay: delayedAnimationDuration,
@@ -141,8 +139,7 @@ Container aboutPage({dynamic context, GlobalKey? key}) {
         ),
         const Gap(20),
         cubit(context).selectedPage == 1 && isMobile(context) ||
-                isMobile(context) &&
-                    scrollPosition > (sizeHeight(context) - kToolbarHeight) / 3
+                isMobile(context) && scrollPosition > pagesHeight(context) / 3
             ? DelayedAnimation(
                 fromRight: true,
                 delay: delayedAnimationDuration,

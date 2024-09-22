@@ -48,22 +48,14 @@ class _HomePageState extends State<HomePage> {
     scrollController.addListener(() async {
       scrollPosition = scrollController.offset;
       // print('Position actuelle du scroll : ${scrollController.offset}');
-      print('Position actuelle du scroll : ${GlobalKey().currentWidget}');
-      double pagesHeight = (sizeHeight(context) - kToolbarHeight);
 
-      scrollController.offset < pagesHeight &&
-              isHeightRediuced(context) == false &&
-              isMobile(context) == false
+      scrollController.offset < pagesHeight(context)
           ? cubit(context).navigationChanged(0)
-          : scrollController.offset < pagesHeight * 2 &&
-                  isHeightRediuced(context) == false &&
-                  isMobile(context) == false
+          : scrollController.offset < pagesHeight(context) * 2
               ? cubit(context).navigationChanged(1)
-              : scrollController.offset < pagesHeight * 3 &&
-                      isHeightRediuced(context) == false &&
-                      sizeWidth(context) > 700
+              : scrollController.offset < pagesHeight(context) * 3
                   ? cubit(context).navigationChanged(2)
-                  : scrollController.offset < pagesHeight * 4
+                  : scrollController.offset < pagesHeight(context) * 4
                       ? cubit(context).navigationChanged(3)
                       : null;
     });
@@ -108,15 +100,10 @@ class _HomePageState extends State<HomePage> {
               controller: scrollController,
               child: Column(
                 children: [
-                  // ListView(
-                  //   shrinkWrap: true,
-                  //   children: [
                   homePage(context: context, key: containerKey0),
                   aboutPage(context: context, key: containerKey1),
                   projectPage(context: context, key: containerKey2),
                   contactPage(context: context, key: containerKey3),
-                  //   ],
-                  // ),
                 ],
               ),
             ),

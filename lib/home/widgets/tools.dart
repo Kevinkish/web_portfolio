@@ -6,7 +6,6 @@ import 'package:web_portfolio/tools/general_tools.dart';
 
 GestureDetector navigationGestureBtn(
     {dynamic context, String? text, int? index, bool isDrawer = false}) {
-  double pagesHeight = (sizeHeight(context) - kToolbarHeight);
   return GestureDetector(
       onTap: () {
         index == 0 &&
@@ -16,13 +15,13 @@ GestureDetector navigationGestureBtn(
             : index == 1 &&
                     isHeightRediuced(context) == false &&
                     isMobile(context) == false
-                ? scrollController.offset == pagesHeight
+                ? scrollController.offset == pagesHeight(context)
                 : index == 2 &&
                         isHeightRediuced(context) == false &&
                         sizeWidth(context) > 700
-                    ? scrollController.offset == pagesHeight * 1
+                    ? scrollController.offset == pagesHeight(context) * 1
                     : index == 3
-                        ? scrollController.offset == pagesHeight * 2
+                        ? scrollController.offset == pagesHeight(context) * 2
                         : cubit(context).navigationChanged(index!);
 
         resetToTop(index);

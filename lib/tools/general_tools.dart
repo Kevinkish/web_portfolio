@@ -10,6 +10,8 @@ double sizeWidth(context) => MediaQuery.sizeOf(context).width;
 
 ThemeData theme(context) => Theme.of(context);
 
+double pagesHeight(context) => (sizeHeight(context) - kToolbarHeight);
+
 appPadding(context) => sizeWidth(context) * 0.06;
 
 Duration onHoverLongAnimationDuration() => const Duration(milliseconds: 500);

@@ -19,7 +19,7 @@ Container projectPage({dynamic context, GlobalKey? key}) {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        cubit(context).selectedPage == 2 || scrollPosition > (sizeHeight(context) - kToolbarHeight) * 3 / 2
+        cubit(context).selectedPage == 2 || scrollPosition > pagesHeight(context) * 3 / 2
             ? DelayedAnimation(
                 delay: delayedAnimationDuration,
                 child: Text(
@@ -40,7 +40,7 @@ Container projectPage({dynamic context, GlobalKey? key}) {
             Expanded(
               flex: 1,
               child: cubit(context).selectedPage == 2 || scrollPosition >
-                      (sizeHeight(context) - kToolbarHeight) * 3 / 2
+                      pagesHeight(context) * 3 / 2
                   ? DelayedAnimation(
                       delay: delayedAnimationDuration,
                       child: projectDetailsContainer(
@@ -61,7 +61,7 @@ Container projectPage({dynamic context, GlobalKey? key}) {
                 : Expanded(
                     flex: 1,
                     child: cubit(context).selectedPage == 2 || scrollPosition >
-                            (sizeHeight(context) - kToolbarHeight) * 3 / 2
+                            pagesHeight(context) * 3 / 2
                         ? DelayedAnimation(
                             delay: delayedAnimationDuration + 100,
                             child: middleProjects(context))
@@ -75,7 +75,7 @@ Container projectPage({dynamic context, GlobalKey? key}) {
                 : Expanded(
                     flex: 1,
                     child: cubit(context).selectedPage == 2 || scrollPosition >
-                            (sizeHeight(context) - kToolbarHeight) * 3 / 2
+                            pagesHeight(context) * 3 / 2
                         ? DelayedAnimation(
                             delay: delayedAnimationDuration + 200,
                             child: rightProjects(context),
@@ -90,7 +90,7 @@ Container projectPage({dynamic context, GlobalKey? key}) {
                 children: [
                   Expanded(
                     child: cubit(context).selectedPage == 2 || scrollPosition >
-                            (sizeHeight(context) - kToolbarHeight) * 3 / 2
+                            pagesHeight(context) * 3 / 2
                         ? DelayedAnimation(
                             delay: delayedAnimationDuration + 100,
                             child: middleProjects(context),
