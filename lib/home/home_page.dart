@@ -50,9 +50,7 @@ class _HomePageState extends State<HomePage> {
       // print('Position actuelle du scroll : ${scrollController.offset}');
       print('Position actuelle du scroll : ${GlobalKey().currentWidget}');
       double pagesHeight = (sizeHeight(context) - kToolbarHeight);
-      //WHILE DESKTOP
-      // isDesktop(context)
-      //     ?
+
       scrollController.offset < pagesHeight &&
               isHeightRediuced(context) == false &&
               isMobile(context) == false
@@ -68,18 +66,6 @@ class _HomePageState extends State<HomePage> {
                   : scrollController.offset < pagesHeight * 4
                       ? cubit(context).navigationChanged(3)
                       : null;
-
-      // WHILE MOBILE
-      // : scrollController.position == containerKey0.currentContext
-      //     ? cubit(context).navigationChanged(0)
-      //     : scrollController.position == containerKey1.currentContext
-      //         ? cubit(context).navigationChanged(1)
-      //         : scrollController.position == containerKey2.currentContext
-      //             ? cubit(context).navigationChanged(2)
-      //             : scrollController.position ==
-      //                     containerKey3.currentContext
-      //                 ? cubit(context).navigationChanged(3)
-      //                 : null;
     });
   }
 

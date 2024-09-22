@@ -37,6 +37,7 @@ Container contactPage({dynamic context, GlobalKey? key}) {
             ? DelayedAnimation(
                 delay: delayedAnimationDuration,
                 child: const Text(
+                  textAlign: TextAlign.center,
                   "Do you have a project in your mind, contact me here.",
                   style: TextStyle(color: Colors.grey),
                 ),
