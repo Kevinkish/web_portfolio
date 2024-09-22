@@ -49,13 +49,22 @@ class _HomePageState extends State<HomePage> {
       scrollPosition = scrollController.offset;
       // print('Position actuelle du scroll : ${scrollController.offset}');
 
-      scrollController.offset < pagesHeight(context)
+
+      scrollController.offset < pagesHeight(context) &&
+             
+              isMobile(context) == false
           ? cubit(context).navigationChanged(0)
-          : scrollController.offset < pagesHeight(context) * 2
+          : scrollController.offset < pagesHeight(context) * 2 &&
+                 
+                  isMobile(context) == false
               ? cubit(context).navigationChanged(1)
-              : scrollController.offset < pagesHeight(context) * 3
+              : scrollController.offset < pagesHeight(context) * 3 &&
+                     
+                      sizeWidth(context) > 700
                   ? cubit(context).navigationChanged(2)
-                  : scrollController.offset < pagesHeight(context) * 4
+                  : scrollController.offset < pagesHeight(context) * 4 &&
+                         
+                          sizeWidth(context) > 700
                       ? cubit(context).navigationChanged(3)
                       : null;
     });
